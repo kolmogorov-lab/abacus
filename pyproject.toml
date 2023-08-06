@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kolmogorov-abacus"
+version = "0.0.1"
+description = "A/B experiments planning and evaluation tool"
+readme = "README.md"
+authors = [
+    {name = "Vadim Glukhov", email = "educauchy@gmail.com"},
+    {name = "Egor Shishkovets", email = "egor.shishkovets@glowbyteconsulting.com"},
+    {name = "Dmitry Zabavin", email = "dmitriy.zabavin@glowbyteconsulting.com"},
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3"
+]
+keywords = [
+    "A/B",
+    "experiments",
+    "OCE",
+    "online controlled experiment",
+    "ab test",
+    "experiment design"
+]
+dynamic = ["dependencies"]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://github.com/kolmogorov-lab/abacus"
+Repository = "https://github.com/kolmogorov-lab/abacus"
+Ecosystem = "https://kolmogorov.ai/"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["."]
