@@ -49,8 +49,7 @@ ab_test.report()
 
 The result of code execution is the following:
 
-[//]: # (![Experiment report!]&#40;docs/source/_static/report_example.png&#41;)
-<img src="docs/source/_static/report_example.png" width="400">
+<img alt="Experiment report" src="https://raw.githubusercontent.com/kolmogorov-lab/abacus/main/docs/source/_static/report_example.png?raw=true" width="400px">
 
 ## Documentation and Examples
 

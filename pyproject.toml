@@ -39,3 +39,6 @@ dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["."]
+exclude = ["*.docs", "*.docs.*", "docs.*", "docs",
+            "*.examples", "*.examples.*", "examples.*", "examples",
+            "*.venv11", "*.venv11.*", "venv11.*", "venv11"]
