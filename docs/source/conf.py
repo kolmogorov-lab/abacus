@@ -15,7 +15,9 @@ import sys
 
 # -- Path setup --------------------------------------------------------------
 
-sys.path.insert(0, os.path.abspath("../../"))
+# sys.path.insert(0, os.path.abspath("../../"))
+basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.insert(0, basedir)
 
 
 # -- Project information -----------------------------------------------------
@@ -48,7 +50,9 @@ extensions = [
     'sphinx_rtd_theme'
 ]
 
+numpydoc_show_class_members = True
 numpydoc_show_class_members = False
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -74,4 +78,4 @@ html_logo = "_static/abacus.png"
 # html_css_files = ["css/style.css"]
 
 # Custom
-autosummary_generate = True
+autosummary_generate = False

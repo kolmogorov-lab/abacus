@@ -30,8 +30,8 @@ dynamic = ["dependencies"]
 requires-python = ">=3.11"
 
 [project.urls]
-Homepage = "https://github.com/kolmogorov-lab/abacus"
-Repository = "https://github.com/kolmogorov-lab/abacus"
+Homepage = "https://kolmogorov-abacus.readthedocs.io/"
+Repository = "https://github.com/kolmogorov-lab/abacus/"
 Ecosystem = "https://kolmogorov.ai/"
 
 [tool.setuptools.dynamic]
