@@ -4,7 +4,6 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kolmogorov-abacus"
-version = "0.0.1"
 description = "A/B experiments planning and evaluation tool"
 readme = "README.md"
 authors = [
@@ -26,7 +25,7 @@ keywords = [
     "ab test",
     "experiment design"
 ]
-dynamic = ["dependencies"]
+dynamic = ["version", "dependencies"]
 requires-python = ">=3.11"
 
 [project.urls]
@@ -35,6 +34,7 @@ Repository = "https://github.com/kolmogorov-lab/abacus/"
 Ecosystem = "https://kolmogorov.ai/"
 
 [tool.setuptools.dynamic]
+version = {file = ["abacus/VERSION"]}
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]

@@ -27,10 +27,10 @@ copyright = "2023 Data Sapience"
 author = "Data Sapience. Advanced Analytics team"
 
 # The full version, including alpha/beta/rc tags
-# from abacus import __version__  # noqa
+from abacus import __version__
 
-release = '0.0.1'
-version = '0.0.1'
+release = __version__
+version = __version__
 
 
 # -- General configuration ---------------------------------------------------

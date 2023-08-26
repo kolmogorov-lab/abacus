@@ -6,6 +6,7 @@ build:
     python: "3.11"
   jobs:
     post_install:
+      - pip install --upgrade pip
       - pip install --no-cache-dir kolmogorov-abacus
       - pip install --no-cache-dir -r requirements.txt
 
