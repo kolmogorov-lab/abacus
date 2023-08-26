@@ -3,7 +3,7 @@ import logging
 from typing import List
 import pandas as pd
 import numpy as np
-from hdbscan import HDBSCAN
+from sklearn.cluster import HDBSCAN
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import Pipeline as Pipe
 from fastcore.transform import Pipeline
