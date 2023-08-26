@@ -51,7 +51,6 @@ extensions = [
 ]
 
 numpydoc_show_class_members = True
-numpydoc_show_class_members = False
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -78,4 +77,4 @@ html_logo = "_static/abacus.png"
 # html_css_files = ["css/style.css"]
 
 # Custom
-autosummary_generate = False
+autosummary_generate = True
