@@ -15,22 +15,22 @@ import sys
 
 # -- Path setup --------------------------------------------------------------
 
-sys.path.insert(0, os.path.abspath("../../"))
+# sys.path.insert(0, os.path.abspath("../../"))
+basedir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.insert(0, basedir)
 
 
 # -- Project information -----------------------------------------------------
 
 project = "ABacus"
-copyright = """
-2023 Data Sapience
-"""
+copyright = "2023 Data Sapience"
 author = "Data Sapience. Advanced Analytics team"
 
 # The full version, including alpha/beta/rc tags
-# from abacus import __version__  # noqa
+from abacus import __version__
 
-release = '0.0.1'
-version = '0.0.1'
+release = __version__
+version = __version__
 
 
 # -- General configuration ---------------------------------------------------
@@ -50,7 +50,8 @@ extensions = [
     'sphinx_rtd_theme'
 ]
 
-numpydoc_show_class_members = False
+numpydoc_show_class_members = True
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
 
@@ -71,9 +72,9 @@ html_theme_options = {"display_version": True, "logo_only": True}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ["_static"]
+html_static_path = ["_static"]
+html_logo = "_static/abacus.png"
 # html_css_files = ["css/style.css"]
-# html_logo = "_static/abacus.png"
 
 # Custom
 autosummary_generate = True

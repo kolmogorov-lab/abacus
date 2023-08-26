@@ -1,16 +1,16 @@
 Installation
 ============
 
-You can use **pip** to install **ABacus** from Github and use it for your projects:
-
-.. code:: bash
-
-    pip install pip+https://github.com/kolmogorov-lab/abacus
-
-Later the package will be published in **PyPI** and will be able to be installed with
+You can use **pip** to install **ABacus** directly from PyPI:
 
 .. code:: bash
 
     pip install kolmogorov-abacus
+
+or right from Github:
+
+.. code:: bash
+
+    pip install pip+https://github.com/kolmogorov-lab/abacus
 
 **Note**: ABacus requires Python 3.11+.
