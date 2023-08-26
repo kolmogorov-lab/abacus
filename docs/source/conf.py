@@ -21,9 +21,7 @@ sys.path.insert(0, os.path.abspath("../../"))
 # -- Project information -----------------------------------------------------
 
 project = "ABacus"
-copyright = """
-2023 Data Sapience
-"""
+copyright = "2023 Data Sapience"
 author = "Data Sapience. Advanced Analytics team"
 
 # The full version, including alpha/beta/rc tags
@@ -71,9 +69,9 @@ html_theme_options = {"display_version": True, "logo_only": True}
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ["_static"]
+html_static_path = ["_static"]
+html_logo = "_static/abacus.png"
 # html_css_files = ["css/style.css"]
-# html_logo = "_static/abacus.png"
 
 # Custom
 autosummary_generate = True

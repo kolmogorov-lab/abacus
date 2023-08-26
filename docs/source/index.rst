@@ -33,7 +33,7 @@ Important features
 .. toctree::
     :maxdepth: 1
     :caption: Technical Documentation
-    :name: technical
+    :name: tech
 
     tech/auto_ab
     tech/splitter
