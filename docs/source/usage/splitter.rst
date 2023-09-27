@@ -21,7 +21,7 @@ Splitter in **ABacus** not only allows you to split your observations into group
         id_col = "user_id",
         cols = ["check_rub_pre_campaign"],
         cat_cols=["gender"],
-        pvalue=0.05,
+        alpha=0.05,
         n_bins = 6,
         min_cluster_size = 500
     )

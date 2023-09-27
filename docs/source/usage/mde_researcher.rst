@@ -51,7 +51,7 @@ This is an example of everything at once for experimental design:
         id_col = "user_id",
         cols = ["check_rub_pre_campaign"],
         cat_cols=["gender"],
-        pvalue=0.05,
+        alpha=0.05,
         n_bins = 6,
         min_cluster_size = 500
     )
