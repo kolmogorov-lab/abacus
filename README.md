@@ -1,5 +1,9 @@
 <img alt="Experiment report" src="https://raw.githubusercontent.com/kolmogorov-lab/abacus/main/docs/source/_static/abacus.png?raw=true" width="320px" height="320px">
 
+[![PyPI Latest Release](https://img.shields.io/pypi/v/kolmogorov-abacus.svg)](https://pypi.org/project/kolmogorov-abacus/)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/kolmogorov-abacus.svg?label=PyPI%20downloads)](https://pypi.org/project/kolmogorov-abacus/)
+[![License - MIT License](https://img.shields.io/pypi/l/kolmogorov-abacus.svg)](https://github.com/kolmogorov-lab/abacus/blob/main/LICENSE)
+
 # ABacus: fast hypothesis testing and experiment design solution
 
 **ABacus** is a Python library developed for A/B experimentation and testing.
@@ -23,7 +27,7 @@ You can use **pip** to install **ABacus** directly from PyPI:
 pip install kolmogorov-abacus
 ```
 
-or right from Github:
+or right from GitHub:
 
 ```shell
 pip install pip+https://github.com/kolmogorov-lab/abacus
@@ -55,7 +59,7 @@ The result of code execution is the following:
 
 ## Documentation and Examples
 
-Detailed [documentation](https://kolmogorov-abacus.readthedocs.io/en/latest/) and [examples](https://github.com/kolmogorov-lab/abacus/tree/main/examples>) are available for your usage.
+Detailed [documentation](https://kolmogorov-abacus.readthedocs.io/en/latest/) and [examples](https://github.com/kolmogorov-lab/abacus/tree/main/examples) are available for your usage.
 
 ## Communication
 
