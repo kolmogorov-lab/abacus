@@ -43,7 +43,7 @@ Important features
 Examples
 --------
 
-For more details, see the `examples <https://github.com/educauchy/abacus/tree/main/examples>`_.
+For more details, see the `examples <https://github.com/kolmogorov-lab/abacus/tree/main/examples>`_.
 
 
 Communication
