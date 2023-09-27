@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0.0", "wheel", "python>='3.11'"]
+requires = ["setuptools>=61.0.1", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -42,6 +42,7 @@ dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["."]
-exclude = ["*.docs", "*.docs.*", "docs.*", "docs",
-            "*.examples", "*.examples.*", "examples.*", "examples",
-            "*.venv11", "*.venv11.*", "venv11.*", "venv11"]
+exclude = ["*.docs", "*.docs.*", "docs.*", "docs", "*docs*",
+            "*.examples", "*.examples.*", "examples.*", "examples", "*examples*",
+            "*.tests", "*.tests.*", "tests.*", "tests", "*tests*",
+            "*.venv11", "*.venv11.*", "venv11.*", "venv11", "*venv11*"]
