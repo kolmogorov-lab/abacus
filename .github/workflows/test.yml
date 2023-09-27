@@ -25,6 +25,10 @@ jobs:
 
       - name: Run black
         uses: psf/black@stable
+        with:
+          options: "--check --verbose"
+          src: "./abacus"
+          jupyter: false
 
   test:
     runs-on: ubuntu-latest

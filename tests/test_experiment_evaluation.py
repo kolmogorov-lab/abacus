@@ -67,9 +67,17 @@ def binary_test_balanced(checks_dataframe) -> ABTest:
     """
     Creation of simple binary experiment with balanced groups
     """
-    min_group_size = min(dict(Counter(checks_dataframe['groups'])).values())
-    control = checks_dataframe[checks_dataframe['groups'] == 'control'].sample(n=min_group_size).reset_index(drop=True)
-    treatment = checks_dataframe[checks_dataframe['groups'] == 'treatment'].sample(n=min_group_size).reset_index(drop=True)
+    min_group_size = min(dict(Counter(checks_dataframe["groups"])).values())
+    control = (
+        checks_dataframe[checks_dataframe["groups"] == "control"]
+        .sample(n=min_group_size)
+        .reset_index(drop=True)
+    )
+    treatment = (
+        checks_dataframe[checks_dataframe["groups"] == "treatment"]
+        .sample(n=min_group_size)
+        .reset_index(drop=True)
+    )
     checks_dataframe_balanced = pd.concat([control, treatment], axis=0)
 
     data_params = DataParams(
@@ -118,7 +126,7 @@ def test_evaluation_boot_confint_test(continuous_test):
     """
     np.random.seed(42)
     test_result = continuous_test.test_boot_confint()
-    true_test_result = {"stat": None, "p-value": 0.9999966831042315, "result": 1}
+    true_test_result = {"stat": None, "p-value": 1, "result": 1}
 
     assert true_test_result == test_result
 
@@ -162,7 +170,7 @@ def test_evaluation_buckets_test(continuous_test):
     """
     np.random.seed(42)
     test_result = continuous_test.test_buckets()
-    true_test_result = {"stat": None, "p-value": 2.1955744603423863e-06, "result": 1}
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result
 
@@ -180,7 +188,7 @@ def test_evaluation_chisquare_test_balanced(binary_test_balanced):
     Chi-square test on balanced data: number of observations between groups is equal
     """
     test_result = binary_test_balanced.test_chisquare()
-    true_test_result = {"stat": 1859.0982148148898, "p-value": 0, "result": 1}
+    true_test_result = {"stat": 1859.09821, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result
 
@@ -190,7 +198,7 @@ def test_evaluation_delta_ratio_test(ratio_test):
     Delta method for evaluation of mean and variance of ratio metric and Welch's t-test for evaluation
     """
     test_result = ratio_test.test_delta_ratio()
-    true_test_result = {"stat": 0.6705474384264442, "p-value": None, "result": 0}
+    true_test_result = {"stat": 0.67055, "p-value": None, "result": 0}
 
     assert true_test_result == test_result
 
@@ -202,7 +210,7 @@ def test_evaluation_mannwhitney_test(continuous_test):
     test_result = continuous_test.test_mannwhitney()
     true_test_result = {
         "stat": 4929788667,
-        "p-value": 5.3724037887497505e-08,
+        "p-value": 0,
         "result": 1,
     }
 
@@ -214,7 +222,7 @@ def test_evaluation_taylor_ratio_test(ratio_test):
     Taylor series expansion for evaluation of mean and variance of ratio metric and Welch's t-test for evaluation
     """
     test_result = ratio_test.test_taylor_ratio()
-    true_test_result = {"stat": -20.063460617525994, "p-value": None, "result": 1}
+    true_test_result = {"stat": -20.06346, "p-value": None, "result": 1}
 
     assert true_test_result == test_result
 
@@ -225,8 +233,8 @@ def test_evaluation_welch_test(continuous_test):
     """
     test_result = continuous_test.test_welch()
     true_test_result = {
-        "stat": 4.784506533506825,
-        "p-value": 1.7152988957095832e-06,
+        "stat": 4.78451,
+        "p-value": 0,
         "result": 1,
     }
 

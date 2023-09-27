@@ -300,7 +300,11 @@ class ABTest:
             if t_stat_empirical > rcv:
                 test_result = 1
 
-        result = {"stat": t_stat_empirical, "p-value": None, "result": test_result}
+        result = {
+            "stat": np.round(t_stat_empirical, 5),
+            "p-value": None,
+            "result": test_result,
+        }
         return result
 
     def __delta_params(self, x: DataFrameType) -> Tuple[float, float]:
@@ -914,7 +918,11 @@ Following statistical tests are used:
         if false_positive <= self.params.hypothesis_params.alpha:
             test_result = 1
 
-        result = {"stat": None, "p-value": false_positive, "result": test_result}
+        result = {
+            "stat": None,
+            "p-value": np.round(false_positive, 5),
+            "result": test_result,
+        }
         return result
 
     def test_boot_confint(self) -> StatTestResultType:
@@ -965,7 +973,11 @@ Following statistical tests are used:
             if 0 < ci_right:  # 0 is not in critical area
                 test_result = 1
 
-        result = {"stat": None, "p-value": zero_pvalue, "result": test_result}
+        result = {
+            "stat": None,
+            "p-value": np.round(zero_pvalue, 5),
+            "result": test_result,
+        }
         return result
 
     def test_boot_ratio(self) -> StatTestResultType:
@@ -1078,7 +1090,7 @@ Following statistical tests are used:
         if pvalue <= self.params.hypothesis_params.alpha:
             test_result = 1
 
-        result = {"stat": None, "p-value": pvalue, "result": test_result}
+        result = {"stat": None, "p-value": np.round(pvalue, 5), "result": test_result}
         return result
 
     def test_buckets(self) -> StatTestResultType:
@@ -1128,7 +1140,7 @@ Following statistical tests are used:
             self.params.hypothesis_params.metric = metric
             _, pvalue, test_result = self.test_boot_confint()
 
-        result = {"stat": None, "p-value": pvalue, "result": test_result}
+        result = {"stat": None, "p-value": np.round(pvalue, 5), "result": test_result}
         return result
 
     def test_chisquare(self) -> StatTestResultType:
@@ -1151,7 +1163,11 @@ Following statistical tests are used:
             if pvalue <= self.params.hypothesis_params.alpha:
                 test_result = 1
 
-            result = {"stat": stat, "p-value": pvalue, "result": test_result}
+            result = {
+                "stat": np.round(stat, 5),
+                "p-value": np.round(pvalue, 5),
+                "result": test_result,
+            }
             return result
         else:
             raise ValueError("Both groups have different lengths")
@@ -1213,7 +1229,11 @@ Following statistical tests are used:
         if pvalue <= self.params.hypothesis_params.alpha:
             test_result = 1
 
-        result = {"stat": stat, "p-value": pvalue, "result": test_result}
+        result = {
+            "stat": np.round(stat, 5),
+            "p-value": np.round(pvalue, 5),
+            "result": test_result,
+        }
         return result
 
     def test_taylor_ratio(self) -> StatTestResultType:
@@ -1261,7 +1281,11 @@ Following statistical tests are used:
         if pvalue <= self.params.hypothesis_params.alpha:
             test_result = 1
 
-        result = {"stat": stat, "p-value": pvalue, "result": test_result}
+        result = {
+            "stat": np.round(stat, 5),
+            "p-value": np.round(pvalue, 5),
+            "result": test_result,
+        }
         return result
 
     def test_z_proportions(self) -> StatTestResultType:
@@ -1294,5 +1318,9 @@ Following statistical tests are used:
         if pvalue <= self.params.hypothesis_params.alpha:
             test_result = 1
 
-        result = {"stat": stat, "p-value": pvalue, "result": test_result}
+        result = {
+            "stat": np.round(stat, 5),
+            "p-value": np.round(pvalue, 5),
+            "result": test_result,
+        }
         return result
