@@ -7,10 +7,11 @@ class ValidationConfig:
     validate_assignment = True
     arbitrary_types_allowed = True
 
+
 @dataclass
-class GroupNames():
-    test_group_name: Union[str, int] = 'test'
-    control_group_name: Union[str, int] = 'control'
+class GroupNames:
+    test_group_name: Union[str, int] = "test"
+    control_group_name: Union[str, int] = "control"
 
 
 @dataclass(config=ValidationConfig)
@@ -22,6 +23,7 @@ class ResplitParams:
         strata_col (str): name of column with strata
         group_col (str): name of column with groups split
     """
+
     group_names: GroupNames
-    strata_col: str = 'strata'
-    group_col: str = 'group_col'
+    strata_col: str = "strata"
+    group_col: str = "group_col"
