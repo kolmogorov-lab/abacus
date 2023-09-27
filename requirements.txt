@@ -7,4 +7,4 @@ matplotlib>=3.7.1
 seaborn>=0.12.2
 category-encoders>=2.4.1
 fastcore>=1.4.3,<1.5
-pydantic>=1.9.1
+pydantic>=1.9.1,<2.0

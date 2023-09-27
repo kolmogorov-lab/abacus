@@ -10,12 +10,14 @@ log.setLevel(logging.INFO)
 
 
 class AbstractMdeResearchBuilder:
-    """Base class for Experiment Builders.
-    """
-    def __init__(self,
-                 guests: pd.DataFrame,
-                 abtest_params: ABTestParams,
-                 experiment_params: MdeParams):
+    """Base class for Experiment Builders."""
+
+    def __init__(
+        self,
+        guests: pd.DataFrame,
+        abtest_params: ABTestParams,
+        experiment_params: MdeParams,
+    ):
         """
         Args:
             guests (pandas.DataFrame): Pandas dataframe that collected by PrepilotGuestsCollector.
@@ -46,9 +48,13 @@ class AbstractMdeResearchBuilder:
         Returns:
             List[int]: List of groups sizes pairs.
         """
-        control = np.sort(np.arange(self.experiment_params.min_group_size,
-                                    self.experiment_params.max_group_size+1,
-                                    self.experiment_params.step))
+        control = np.sort(
+            np.arange(
+                self.experiment_params.min_group_size,
+                self.experiment_params.max_group_size + 1,
+                self.experiment_params.step,
+            )
+        )
         groups_split = list()
         for el in control:
             groups_split.extend(list(itertools.product([el], [el])))
