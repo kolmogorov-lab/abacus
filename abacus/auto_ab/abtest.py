@@ -99,6 +99,8 @@ class ABTest:
             ],
             "binary": [
                 "report_binary",
+                "test_boot_confint",
+                "test_boot_fp",
                 "test_z_proportions",
                 "test_chisquare",
             ],
