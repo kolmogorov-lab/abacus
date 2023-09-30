@@ -12,7 +12,6 @@ POSSIBLE_TESTS = [
     ABTest.test_boot_fp,
     ABTest.test_delta_ratio,
     ABTest.test_mannwhitney,
-    ABTest.test_strat_confint,
     ABTest.test_taylor_ratio,
     ABTest.test_welch,
 ]
@@ -37,15 +36,12 @@ if __name__ == "__main__":
         treatment_name="target",
         strata_col="country",
         target="height_now",
-        target_flg="bought",
         predictors=["weight_now"],
         numerator="clicks",
         denominator="sessions",
         covariate="height_prev",
         target_prev="height_prev",
         predictors_prev=["weight_prev"],
-        cluster_col="kl-divergence",
-        clustering_cols=["col1", "col2", "col3"],
         is_grouped=True,
     )
 
@@ -53,14 +49,9 @@ if __name__ == "__main__":
         alpha=0.05,
         beta=0.2,
         alternative="two-sided",
-        split_ratios=(0.5, 0.5),
-        strategy="simple_test",
-        strata="country",
-        strata_weights={"US": 0.8, "UK": 0.2},
-        metric_type="solid",
+        metric_type="continuous",
         metric_name="mean",
-        metric=np.mean,
-        n_boot_samples=2,
+        n_boot_samples=1000,
         n_buckets=50,
     )
 

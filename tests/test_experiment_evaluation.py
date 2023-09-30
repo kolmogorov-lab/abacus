@@ -50,7 +50,7 @@ def binary_test(checks_dataframe) -> ABTest:
         group_col="groups",
         control_name="control",
         treatment_name="treatment",
-        target_flg="has_transaction",
+        target="has_transaction",
     )
     hypothesis_params = HypothesisParams(metric_type="binary")
 
@@ -85,7 +85,7 @@ def binary_test_balanced(checks_dataframe) -> ABTest:
         group_col="groups",
         control_name="control",
         treatment_name="treatment",
-        target_flg="has_transaction",
+        target="has_transaction",
     )
     hypothesis_params = HypothesisParams(metric_type="binary")
 

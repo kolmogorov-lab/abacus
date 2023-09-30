@@ -148,10 +148,8 @@ class ABTest:
                 "id_col": self.params.data_params.id_col,
                 "group_col": self.params.data_params.group_col,
             }
-            if self.params.hypothesis_params.metric_type == "continuous":
+            if self.params.hypothesis_params.metric_type in ["continuous", "binary"]:
                 cols["target"] = self.params.data_params.target
-            elif self.params.hypothesis_params.metric_type == "binary":
-                cols["target_flg"] = self.params.data_params.target_flg
             elif self.params.hypothesis_params.metric_type == "ratio":
                 cols["numerator"] = self.params.data_params.numerator
                 cols["denominator"] = self.params.data_params.denominator
@@ -191,16 +189,12 @@ class ABTest:
         """
         x = df if df is not None else self.__dataset
         group = np.array([])
-        if self.params.hypothesis_params.metric_type == "continuous":
+        if self.params.hypothesis_params.metric_type in ["continuous", "binary"]:
             group = x.loc[
                 x[self.params.data_params.group_col] == group_label,
                 self.params.data_params.target,
             ].to_numpy()
-        elif self.params.hypothesis_params.metric_type == "binary":
-            group = x.loc[
-                x[self.params.data_params.group_col] == group_label,
-                self.params.data_params.target_flg,
-            ].to_numpy()
+
         return group
 
     def __bucketize(self, x: ArrayNumType) -> np.ndarray:
