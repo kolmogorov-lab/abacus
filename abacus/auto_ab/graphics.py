@@ -1,3 +1,4 @@
+from typing import Optional
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -32,11 +33,12 @@ class Graphics:
         pass
 
     @classmethod
-    def plot_continuous_experiment(cls, params: ABTestParams) -> None:
+    def plot_continuous_experiment(cls, params: ABTestParams, save_path: Optional[str]) -> None:
         """Plot distributions of continuous metric and actual experiment metric.
 
         Args:
             params (ABTestParams): Parameters of the experiment.
+            save_path (str, optional): Path where to save image.
         """
         bins = 300
         ctrl_mean: float = params.hypothesis_params.metric(params.data_params.control)
@@ -75,7 +77,10 @@ class Graphics:
         )
         ax.legend()
         ax.set_xlabel(x_label)
-        plt.show()
+        if save_path is None:
+            plt.show()
+        else:
+            plt.savefig(save_path)
         plt.close()
 
     @classmethod
@@ -105,11 +110,12 @@ class Graphics:
         plt.show()
 
     @classmethod
-    def plot_binary_experiment(cls, params: ABTestParams) -> None:
+    def plot_binary_experiment(cls, params: ABTestParams, save_path: Optional[str]) -> None:
         """Plot experiment with binary outcome.
 
         Args:
             params (ABTestParams): Parameters of the experiment.
+            save_path (str, optional): Path where to save image.
         """
         x = params.data_params.control
         y = params.data_params.treatment
@@ -162,5 +168,9 @@ class Graphics:
             x = patches[i].get_x() + patches[i].get_width() / 2
             y = patches[i].get_height() + 0.05
             ax.annotate("{:.1f}%".format(shares[i]), (x, y), ha="center")
-        plt.show()
+
+        if save_path is None:
+            plt.show()
+        else:
+            plt.savefig(save_path)
         plt.close()

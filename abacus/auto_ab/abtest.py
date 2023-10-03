@@ -836,19 +836,25 @@ Following statistical tests are used:
 
         return ABTest(dataset_new, params_new)
 
-    def plot(self) -> None:
+    def plot(self, kind: str = 'experiment', save_path: Optional[str] = None) -> None:
         """Plot experiment.
 
-        Plot figure type depends on the following parameters:
+        Args:
+            kind (str): Kind of plot: 'experiment', 'bootstrap'.
+            save_path (str, optional): Path where to save image.
 
-        - hypothesis_params.metric_name
-        - hypothesis_params.strategy
+        Raises:
+            ValueError: If `kind` is not in ['experiment', 'bootstrap'].
         """
-        if self.params.hypothesis_params.metric_type == "continuous":
-            Graphics.plot_continuous_experiment(self.params)
+        if kind not in ['experiment', 'bootstrap']:
+            raise ValueError("`kind` parameter supports only the following values: 'experiment', 'bootstrap'")
 
-        if self.params.hypothesis_params.metric_type == "binary":
-            Graphics.plot_binary_experiment(self.params)
+        if kind == 'experiment':
+            if self.params.hypothesis_params.metric_type == "continuous":
+                Graphics.plot_continuous_experiment(self.params, save_path)
+
+            if self.params.hypothesis_params.metric_type == "binary":
+                Graphics.plot_binary_experiment(self.params, save_path)
 
     def report(self) -> None:
         report_output = "Report for ratio metric currently not supported."
