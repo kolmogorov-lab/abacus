@@ -945,7 +945,6 @@ Following statistical tests are used:
 
         boot_mean = pd_metric_diffs.mean()
         boot_std = pd_metric_diffs.std()
-        zero_pvalue = norm.sf(0, loc=boot_mean, scale=boot_std)[0]
 
         test_result: int = 0  # 0 - cannot reject H0, 1 - reject H0
         if self.params.hypothesis_params.alternative == "two-sided":
@@ -954,18 +953,27 @@ Following statistical tests are used:
             ci = pd_metric_diffs.quantile([left_quant, right_quant])
             ci_left, ci_right = float(ci.iloc[0]), float(ci.iloc[1])
 
+            one_sided_pvalue = norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+            zero_pvalue = min(one_sided_pvalue, 1 - one_sided_pvalue)
+
             if ci_left > 0 or ci_right < 0:  # 0 is not in critical area
                 test_result = 1
         elif self.params.hypothesis_params.alternative == "less":
             left_quant = self.params.hypothesis_params.alpha
             ci = pd_metric_diffs.quantile([left_quant])
             ci_left = float(ci.iloc[0])
+
+            zero_pvalue = norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+
             if ci_left < 0:  # 0 is not is critical area
                 test_result = 1
         elif self.params.hypothesis_params.alternative == "greater":
             right_quant = self.params.hypothesis_params.alpha
             ci = pd_metric_diffs.quantile([right_quant])
             ci_right = float(ci.iloc[0])
+
+            zero_pvalue = 1 - norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+
             if 0 < ci_right:  # 0 is not in critical area
                 test_result = 1
 

@@ -126,7 +126,7 @@ def test_evaluation_boot_confint_test_continuous(continuous_test):
     """
     np.random.seed(42)
     test_result = continuous_test.test_boot_confint()
-    true_test_result = {"stat": None, "p-value": 1, "result": 1}
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result
 
@@ -137,7 +137,7 @@ def test_evaluation_boot_confint_test_binary(binary_test):
     """
     np.random.seed(42)
     test_result = binary_test.test_boot_confint()
-    true_test_result = {"stat": None, "p-value": 1, "result": 1}
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result
 
