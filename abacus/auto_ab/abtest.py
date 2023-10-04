@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple, Dict, Any
 import copy
 import warnings
 import numpy as np
@@ -380,7 +380,7 @@ class ABTest:
 
         return mean, var
 
-    def __report_binary(self) -> str:
+    def __report_binary(self) -> Tuple[str, Dict[str, Any]]:
         self.__check_required_metric_type("report_binary")
 
         hypothesis = self.params.hypothesis_params
@@ -458,9 +458,9 @@ Treatment group:
             **params
         )
 
-        return output
+        return output, params
 
-    def __report_continuous(self) -> str:
+    def __report_continuous(self) -> Tuple[str, Dict[str, Any]]:
         self.__check_required_metric_type("report_continuous")
 
         hypothesis = self.params.hypothesis_params
@@ -593,7 +593,7 @@ Treatment group:
             **params
         )
 
-        return output
+        return output, params
 
     def __report_ratio(self):
         raise NotImplementedError("Reporting for ratio metric is still in progress..")
@@ -862,16 +862,19 @@ Treatment group:
             if self.params.hypothesis_params.metric_type == "binary":
                 Graphics.plot_binary_experiment(self.params, save_path)
 
-    def report(self) -> None:
+    def report(self) -> Dict[str, Any]:
         report_output = "Report for ratio metric currently not supported."
+        report_params = {}
 
         if self.params.hypothesis_params.metric_type == "continuous":
-            report_output = self.__report_continuous()
+            report_output, report_params = self.__report_continuous()
 
         if self.params.hypothesis_params.metric_type == "binary":
-            report_output = self.__report_binary()
+            report_output, report_params = self.__report_binary()
 
         print(report_output)
+
+        return report_params
 
     def resplit_df(self) -> ABTest:
         """Resplit dataframe.
