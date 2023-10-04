@@ -856,11 +856,14 @@ Treatment group:
             raise ValueError("`kind` parameter supports only the following values: 'experiment', 'bootstrap'")
 
         if kind == 'experiment':
-            if self.params.hypothesis_params.metric_type == "continuous":
+            if self.params.hypothesis_params.metric_type == 'continuous':
                 Graphics.plot_continuous_experiment(self.params, save_path)
 
-            if self.params.hypothesis_params.metric_type == "binary":
+            if self.params.hypothesis_params.metric_type == 'binary':
                 Graphics.plot_binary_experiment(self.params, save_path)
+
+        elif kind == 'bootstrap' and self.params.hypothesis_params.metric_type in ['continuous', 'binary']:
+            Graphics.plot_bootstrap_confint(self.params, save_path)
 
     def report(self) -> Dict[str, Any]:
         report_output = "Report for ratio metric currently not supported."
