@@ -842,7 +842,7 @@ Treatment group:
 
         return ABTest(dataset_new, params_new)
 
-    def plot(self, kind: str = 'experiment', save_path: Optional[str] = None) -> None:
+    def plot(self, kind: str = "experiment", save_path: Optional[str] = None) -> None:
         """Plot experiment.
 
         Args:
@@ -852,17 +852,22 @@ Treatment group:
         Raises:
             ValueError: If `kind` is not in ['experiment', 'bootstrap'].
         """
-        if kind not in ['experiment', 'bootstrap']:
-            raise ValueError("`kind` parameter supports only the following values: 'experiment', 'bootstrap'")
+        if kind not in ["experiment", "bootstrap"]:
+            raise ValueError(
+                "`kind` parameter supports only the following values: 'experiment', 'bootstrap'"
+            )
 
-        if kind == 'experiment':
-            if self.params.hypothesis_params.metric_type == 'continuous':
+        if kind == "experiment":
+            if self.params.hypothesis_params.metric_type == "continuous":
                 Graphics.plot_continuous_experiment(self.params, save_path)
 
-            if self.params.hypothesis_params.metric_type == 'binary':
+            if self.params.hypothesis_params.metric_type == "binary":
                 Graphics.plot_binary_experiment(self.params, save_path)
 
-        elif kind == 'bootstrap' and self.params.hypothesis_params.metric_type in ['continuous', 'binary']:
+        elif kind == "bootstrap" and self.params.hypothesis_params.metric_type in [
+            "continuous",
+            "binary",
+        ]:
             Graphics.plot_bootstrap_confint(self.params, save_path)
 
     def report(self) -> Dict[str, Any]:

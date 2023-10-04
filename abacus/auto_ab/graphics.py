@@ -33,7 +33,9 @@ class Graphics:
         pass
 
     @classmethod
-    def plot_continuous_experiment(cls, params: ABTestParams, save_path: Optional[str]) -> None:
+    def plot_continuous_experiment(
+        cls, params: ABTestParams, save_path: Optional[str]
+    ) -> None:
         """Plot distributions of continuous metric and actual experiment metric.
 
         Args:
@@ -85,7 +87,9 @@ class Graphics:
         plt.close()
 
     @classmethod
-    def plot_bootstrap_confint(cls, params: ABTestParams, save_path: Optional[str]) -> None:
+    def plot_bootstrap_confint(
+        cls, params: ABTestParams, save_path: Optional[str]
+    ) -> None:
         """Plot bootstrapped metric of an experiment with its confidence
         interval and zero value.
 
@@ -98,8 +102,12 @@ class Graphics:
         treatment_len = len(params.data_params.treatment)
         metric = params.hypothesis_params.metric
         for _ in range(params.hypothesis_params.n_boot_samples):
-            boot_control = np.random.choice(params.data_params.control, size=control_len, replace=True)
-            boot_treatment = np.random.choice(params.data_params.treatment, size=treatment_len, replace=True)
+            boot_control = np.random.choice(
+                params.data_params.control, size=control_len, replace=True
+            )
+            boot_treatment = np.random.choice(
+                params.data_params.treatment, size=treatment_len, replace=True
+            )
             boot_diff = metric(boot_treatment) - metric(boot_control)
             bootstrap_diffs.append(boot_diff)
 
@@ -110,7 +118,9 @@ class Graphics:
             bootstrap_diffs, params.hypothesis_params.alpha / 2
         ), np.quantile(bootstrap_diffs, 1 - params.hypothesis_params.alpha / 2)
         fig, ax = plt.subplots(figsize=(20, 12))
-        ax.hist(bootstrap_diffs, bins, alpha=0.5, label="Differences in metric", color="Red")
+        ax.hist(
+            bootstrap_diffs, bins, alpha=0.5, label="Differences in metric", color="Red"
+        )
         ax.axvline(x=0, color="Red", label="No difference")
         ax.vlines(
             [ci_left, ci_right],
@@ -120,7 +130,7 @@ class Graphics:
             label="Confidence interval",
         )
         ax.legend()
-        ax.set_xlabel('effect on ' + x_label)
+        ax.set_xlabel("effect on " + x_label)
 
         if save_path is None:
             plt.show()
@@ -129,7 +139,9 @@ class Graphics:
         plt.close()
 
     @classmethod
-    def plot_binary_experiment(cls, params: ABTestParams, save_path: Optional[str]) -> None:
+    def plot_binary_experiment(
+        cls, params: ABTestParams, save_path: Optional[str]
+    ) -> None:
         """Plot experiment with binary outcome.
 
         Args:

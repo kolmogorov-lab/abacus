@@ -141,6 +141,7 @@ def test_evaluation_boot_confint_test_binary(binary_test):
 
     assert true_test_result == test_result
 
+
 def test_evaluation_boot_fp_test_continuous(continuous_test):
     """
     Bootstrap test evaluation using false positives
