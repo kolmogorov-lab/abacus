@@ -23,7 +23,7 @@ Here is how you can do it:
         alpha=0.01,
         beta=0.2,
         alternative='greater',
-        metric_type='solid',
+        metric_type='continuous',
         metric_name='95th quantile',
         metric=lambda x: np.quantile(x, 0.95)
     )

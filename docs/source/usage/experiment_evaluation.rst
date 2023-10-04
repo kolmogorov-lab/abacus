@@ -23,7 +23,7 @@ Each of these types requires its own particular methods to conduct statistical a
 **ABacus** has the following statistical tests for each type of metric:
 
 1. For continuous metrics: ``Welch t-test``, ``Mann-Whitney U-test``, ``bootstrap``.
-2. For binary metrics: ``chi-squared test``, ``Z-test``.
+2. For binary metrics: ``chi-squared test``, ``Z-test``, ``bootstrap``.
 3. For ratio metrics: ``delta method``, ``Taylor method``.
 
 To get the result of a test, just call the appropriate statistical method on your ABTest instance:
@@ -127,22 +127,6 @@ As you want to make your metrics more sensitive, you will mostly likely want to 
     ab_test = ABTest(...)
     ab_test_2 = ab_test.cupac()
 
-* **Stratification** allows you to remove variance using not sample random sampling, but stratified sampling.
-
-.. code-block:: python
-
-    data_params = DataParams(..., strata_col='city')
-    hypothesis_params = HypothesisParams(..., strata='city',
-                                              strata_weights={
-                                                'Moscow': 0.6,
-                                                'Voronezh': 0.1,
-                                                'Samara': 0.3
-                        })
-
-    ab_test = ABTest(...)
-    ab_test_2 = ab_test.test_strat_confint()
-
-|
 
 """"""""""""""
 Visualizations

@@ -12,15 +12,15 @@ class SplitBuilderParams:
     Args:
         map_group_names_to_sizes(Dict): dictionary with group names and sizes.
             Key with name "control" is obligatory
-        main_strata_col (str): nthe name of the column to be used first for splitting
+        main_strata_col (str): the name of the column to be used first for splitting
         split_metric_col (str): the name of the column to be binning data for splitting
         id_col (str): the name of the column with id
         cols: columns for stratification data
         cat_cols: categorical columns that are using for stratification.
-            These cols'll be encoded as category features
+            These columns will be encoded as category features
         n_bins: number of bins to be created based on split_metric_col
         min_cluster_size: min count of samples in HDBSCAN cluster
-        strata_outliers_frac: frequency of outlyers in strata
+        strata_outliers_frac: frequency of outliers in strata
         alpha: significance level for A/A test for split
     """
 
