@@ -52,6 +52,8 @@ class MdeParams:
         transformations = list(filter(None, transformations))
         self.transformations = Pipeline(transformations)
 
+        self.injects = [inj / 100 + 1 for inj in self.injects]
+
     @validator("variance_reduction", always=True)
     @classmethod
     def variance_reduction_validator(cls, variance_reduction):
