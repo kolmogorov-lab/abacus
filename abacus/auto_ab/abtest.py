@@ -436,6 +436,16 @@ Parameters of experiment:
 - Errors: alpha = {alpha}, beta = {beta}.
 - Alternative: {alternative}.
 
+{transforms}
+
+Following statistical tests are used:
+- Z-test: {ztest_stat:.2f}, p-value = {ztest_pvalue:.4f}, {ztest_result}.
+{chi_square}
+
+{test_explanation}
+Please note that you should carefully use the results of different statistical procedures and do not consider all of them at once.
+
+Statistics of experiment groups.
 Control group:
 - Observations: {ctrl_obs}
 - Conversion: {ctrl_conv}
@@ -444,13 +454,6 @@ Treatment group:
 - Observations: {trtm_obs}
 - Conversion: {trtm_conv}
 
-{transforms}
-
-Following statistical tests are used:
-- Z-test: {ztest_stat:.2f}, p-value = {ztest_pvalue:.4f}, {ztest_result}.
-{chi_square}
-
-{test_explanation}
         """.format(
             **params
         )
@@ -553,6 +556,17 @@ Parameters of experiment:
 - Errors: alpha = {alpha}, beta = {beta}.
 - Alternative: {alternative}.
 
+{transforms}
+Number of bootstrap iterations: {n_boot_samples}.\n{bucketing_str}{metric_transform_str}{filter_outliers_str}
+Following statistical tests are used:
+- Welch's t-test: {welch_stat:.2f}, p-value = {welch_pvalue:.4f}, {welch_result}.
+- Mann Whitney's U-test: {mwu_stat:.2f}, p-value = {mwu_pvalue:.4f}, {mwu_result}.
+- Bootstrap test: {boot_result}.
+
+{test_explanation}
+Please note that you should carefully use the results of different statistical procedures and do not consider all of them at once.
+
+Statistics of experiment groups.
 Control group:
 - Observations: {ctrl_obs}
 - Mean: {ctrl_mean:.4f}
@@ -575,14 +589,6 @@ Treatment group:
 - St.deviation: {trtm_std:.4f}
 - Variance: {trtm_var:.4f}
 
-{transforms}
-Number of bootstrap iterations: {n_boot_samples}.\n{bucketing_str}{metric_transform_str}{filter_outliers_str}
-Following statistical tests are used:
-- Welch's t-test: {welch_stat:.2f}, p-value = {welch_pvalue:.4f}, {welch_result}.
-- Mann Whitney's U-test: {mwu_stat:.2f}, p-value = {mwu_pvalue:.4f}, {mwu_result}.
-- Bootstrap test: {boot_result}.
-
-{test_explanation}
         """.format(
             **params
         )
