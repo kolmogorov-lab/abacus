@@ -10,7 +10,7 @@ class ValidationConfig:
 
 @dataclass
 class GroupNames:
-    test_group_name: Union[str, int] = "test"
+    test_group_name: Union[str, int] = "treatment"
     control_group_name: Union[str, int] = "control"
 
 

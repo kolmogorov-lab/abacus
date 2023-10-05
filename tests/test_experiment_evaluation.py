@@ -50,7 +50,7 @@ def binary_test(checks_dataframe) -> ABTest:
         group_col="groups",
         control_name="control",
         treatment_name="treatment",
-        target_flg="has_transaction",
+        target="has_transaction"
     )
     hypothesis_params = HypothesisParams(metric_type="binary")
 
@@ -85,7 +85,7 @@ def binary_test_balanced(checks_dataframe) -> ABTest:
         group_col="groups",
         control_name="control",
         treatment_name="treatment",
-        target_flg="has_transaction",
+        target="has_transaction"
     )
     hypothesis_params = HypothesisParams(metric_type="binary")
 
@@ -120,23 +120,45 @@ def ratio_test(checks_dataframe) -> ABTest:
     return ab_test
 
 
-def test_evaluation_boot_confint_test(continuous_test):
+def test_evaluation_boot_confint_test_continuous(continuous_test):
     """
     Bootstrap confidence interval test evaluation
     """
     np.random.seed(42)
     test_result = continuous_test.test_boot_confint()
-    true_test_result = {"stat": None, "p-value": 1, "result": 1}
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result
 
 
-def test_evaluation_boot_fp_test(continuous_test):
+def test_evaluation_boot_confint_test_binary(binary_test):
+    """
+    Bootstrap confidence interval test evaluation
+    """
+    np.random.seed(42)
+    test_result = binary_test.test_boot_confint()
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
+
+    assert true_test_result == test_result
+
+
+def test_evaluation_boot_fp_test_continuous(continuous_test):
     """
     Bootstrap test evaluation using false positives
     """
     np.random.seed(42)
     test_result = continuous_test.test_boot_fp()
+    true_test_result = {"stat": None, "p-value": 0, "result": 1}
+
+    assert true_test_result == test_result
+
+
+def test_evaluation_boot_fp_test_binary(binary_test):
+    """
+    Bootstrap test evaluation using false positives
+    """
+    np.random.seed(42)
+    test_result = binary_test.test_boot_fp()
     true_test_result = {"stat": None, "p-value": 0, "result": 1}
 
     assert true_test_result == test_result

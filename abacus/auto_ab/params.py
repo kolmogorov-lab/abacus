@@ -31,8 +31,7 @@ class DataParams:
         treatment_name (str): Name of treatment group in ``group_col``.
         is_grouped (bool, Optional): Flag that shows whether observations are grouped.
         strata_col (str, Optional): Name of stratification column. Stratification column must be categorical.
-        target (str, Optional): Target column name of continuous metric.
-        target_flg (str, Optional): Target flag column name of binary metric.
+        target (str, Optional): Target column name of continuous or binary metric.
         numerator (str, Optional): Numerator for ratio metric.
         denominator (str, Optional): Denominator for ratio metric.
         covariate (str, Optional): Covariate column for CUPED.
@@ -51,7 +50,6 @@ class DataParams:
     is_grouped: Optional[bool] = True
     strata_col: Optional[ColumnNameType] = ""
     target: Optional[ColumnNameType] = ""
-    target_flg: Optional[ColumnNameType] = ""
     numerator: Optional[ColumnNameType] = ""
     denominator: Optional[ColumnNameType] = ""
     covariate: Optional[ColumnNameType] = ""

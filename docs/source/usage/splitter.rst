@@ -38,4 +38,4 @@ After the application of splitter to your data, you will see two additional colu
   :alt: Splitter example
 
 - ``strata``: strata of observation created by clustering algorithm (HDBSCAN).
-- ``group_name``: groups of experiment. Control group have the same group name - ``control``, and the treatment is called ``target``.
+- ``group_name``: groups of experiment. Control group has the same group name - ``control``, and the treatment is called ``treatment``.

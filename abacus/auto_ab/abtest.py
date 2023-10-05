@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple, Dict, Any
 import copy
 import warnings
 import numpy as np
@@ -99,6 +99,8 @@ class ABTest:
             ],
             "binary": [
                 "report_binary",
+                "test_boot_confint",
+                "test_boot_fp",
                 "test_z_proportions",
                 "test_chisquare",
             ],
@@ -148,10 +150,8 @@ class ABTest:
                 "id_col": self.params.data_params.id_col,
                 "group_col": self.params.data_params.group_col,
             }
-            if self.params.hypothesis_params.metric_type == "continuous":
+            if self.params.hypothesis_params.metric_type in ["continuous", "binary"]:
                 cols["target"] = self.params.data_params.target
-            elif self.params.hypothesis_params.metric_type == "binary":
-                cols["target_flg"] = self.params.data_params.target_flg
             elif self.params.hypothesis_params.metric_type == "ratio":
                 cols["numerator"] = self.params.data_params.numerator
                 cols["denominator"] = self.params.data_params.denominator
@@ -191,16 +191,12 @@ class ABTest:
         """
         x = df if df is not None else self.__dataset
         group = np.array([])
-        if self.params.hypothesis_params.metric_type == "continuous":
+        if self.params.hypothesis_params.metric_type in ["continuous", "binary"]:
             group = x.loc[
                 x[self.params.data_params.group_col] == group_label,
                 self.params.data_params.target,
             ].to_numpy()
-        elif self.params.hypothesis_params.metric_type == "binary":
-            group = x.loc[
-                x[self.params.data_params.group_col] == group_label,
-                self.params.data_params.target_flg,
-            ].to_numpy()
+
         return group
 
     def __bucketize(self, x: ArrayNumType) -> np.ndarray:
@@ -384,7 +380,7 @@ class ABTest:
 
         return mean, var
 
-    def __report_binary(self) -> str:
+    def __report_binary(self) -> Tuple[str, Dict[str, Any]]:
         self.__check_required_metric_type("report_binary")
 
         hypothesis = self.params.hypothesis_params
@@ -440,6 +436,17 @@ Parameters of experiment:
 - Errors: alpha = {alpha}, beta = {beta}.
 - Alternative: {alternative}.
 
+{transforms}
+
+Following statistical tests are used:
+- Z-test: {ztest_stat:.2f}, p-value = {ztest_pvalue:.4f}, {ztest_result}.
+{chi_square}
+
+{test_explanation}
+Please note that you should carefully use the results of different statistical 
+procedures and do not consider all of them at once.
+
+Statistics of experiment groups.
 Control group:
 - Observations: {ctrl_obs}
 - Conversion: {ctrl_conv}
@@ -448,20 +455,13 @@ Treatment group:
 - Observations: {trtm_obs}
 - Conversion: {trtm_conv}
 
-{transforms}
-
-Following statistical tests are used:
-- Z-test: {ztest_stat:.2f}, p-value = {ztest_pvalue:.4f}, {ztest_result}.
-{chi_square}
-
-{test_explanation}
         """.format(
             **params
         )
 
-        return output
+        return output, params
 
-    def __report_continuous(self) -> str:
+    def __report_continuous(self) -> Tuple[str, Dict[str, Any]]:
         self.__check_required_metric_type("report_continuous")
 
         hypothesis = self.params.hypothesis_params
@@ -557,6 +557,18 @@ Parameters of experiment:
 - Errors: alpha = {alpha}, beta = {beta}.
 - Alternative: {alternative}.
 
+{transforms}
+Number of bootstrap iterations: {n_boot_samples}.\n{bucketing_str}{metric_transform_str}{filter_outliers_str}
+Following statistical tests are used:
+- Welch's t-test: {welch_stat:.2f}, p-value = {welch_pvalue:.4f}, {welch_result}.
+- Mann Whitney's U-test: {mwu_stat:.2f}, p-value = {mwu_pvalue:.4f}, {mwu_result}.
+- Bootstrap test: {boot_result}.
+
+{test_explanation}
+Please note that you should carefully use the results of different statistical 
+procedures and do not consider all of them at once.
+
+Statistics of experiment groups.
 Control group:
 - Observations: {ctrl_obs}
 - Mean: {ctrl_mean:.4f}
@@ -579,19 +591,11 @@ Treatment group:
 - St.deviation: {trtm_std:.4f}
 - Variance: {trtm_var:.4f}
 
-{transforms}
-Number of bootstrap iterations: {n_boot_samples}.\n{bucketing_str}{metric_transform_str}{filter_outliers_str}
-Following statistical tests are used:
-- Welch's t-test: {welch_stat:.2f}, p-value = {welch_pvalue:.4f}, {welch_result}.
-- Mann Whitney's U-test: {mwu_stat:.2f}, p-value = {mwu_pvalue:.4f}, {mwu_result}.
-- Bootstrap test: {boot_result}.
-
-{test_explanation}
         """.format(
             **params
         )
 
-        return output
+        return output, params
 
     def __report_ratio(self):
         raise NotImplementedError("Reporting for ratio metric is still in progress..")
@@ -840,30 +844,47 @@ Following statistical tests are used:
 
         return ABTest(dataset_new, params_new)
 
-    def plot(self) -> None:
+    def plot(self, kind: str = "experiment", save_path: Optional[str] = None) -> None:
         """Plot experiment.
 
-        Plot figure type depends on the following parameters:
+        Args:
+            kind (str): Kind of plot: 'experiment', 'bootstrap'.
+            save_path (str, optional): Path where to save image.
 
-        - hypothesis_params.metric_name
-        - hypothesis_params.strategy
+        Raises:
+            ValueError: If `kind` is not in ['experiment', 'bootstrap'].
         """
-        if self.params.hypothesis_params.metric_type == "continuous":
-            Graphics.plot_continuous_experiment(self.params)
+        if kind not in ["experiment", "bootstrap"]:
+            raise ValueError(
+                "`kind` parameter supports only the following values: 'experiment', 'bootstrap'"
+            )
 
-        if self.params.hypothesis_params.metric_type == "binary":
-            Graphics.plot_binary_experiment(self.params)
+        if kind == "experiment":
+            if self.params.hypothesis_params.metric_type == "continuous":
+                Graphics.plot_continuous_experiment(self.params, save_path)
 
-    def report(self) -> None:
+            if self.params.hypothesis_params.metric_type == "binary":
+                Graphics.plot_binary_experiment(self.params, save_path)
+
+        elif kind == "bootstrap" and self.params.hypothesis_params.metric_type in [
+            "continuous",
+            "binary",
+        ]:
+            Graphics.plot_bootstrap_confint(self.params, save_path)
+
+    def report(self) -> Dict[str, Any]:
         report_output = "Report for ratio metric currently not supported."
+        report_params = {}
 
         if self.params.hypothesis_params.metric_type == "continuous":
-            report_output = self.__report_continuous()
+            report_output, report_params = self.__report_continuous()
 
         if self.params.hypothesis_params.metric_type == "binary":
-            report_output = self.__report_binary()
+            report_output, report_params = self.__report_binary()
 
         print(report_output)
+
+        return report_params
 
     def resplit_df(self) -> ABTest:
         """Resplit dataframe.
@@ -949,7 +970,6 @@ Following statistical tests are used:
 
         boot_mean = pd_metric_diffs.mean()
         boot_std = pd_metric_diffs.std()
-        zero_pvalue = norm.sf(0, loc=boot_mean, scale=boot_std)[0]
 
         test_result: int = 0  # 0 - cannot reject H0, 1 - reject H0
         if self.params.hypothesis_params.alternative == "two-sided":
@@ -958,18 +978,27 @@ Following statistical tests are used:
             ci = pd_metric_diffs.quantile([left_quant, right_quant])
             ci_left, ci_right = float(ci.iloc[0]), float(ci.iloc[1])
 
+            one_sided_pvalue = norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+            zero_pvalue = min(one_sided_pvalue, 1 - one_sided_pvalue)
+
             if ci_left > 0 or ci_right < 0:  # 0 is not in critical area
                 test_result = 1
         elif self.params.hypothesis_params.alternative == "less":
             left_quant = self.params.hypothesis_params.alpha
             ci = pd_metric_diffs.quantile([left_quant])
             ci_left = float(ci.iloc[0])
+
+            zero_pvalue = norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+
             if ci_left < 0:  # 0 is not is critical area
                 test_result = 1
         elif self.params.hypothesis_params.alternative == "greater":
             right_quant = self.params.hypothesis_params.alpha
             ci = pd_metric_diffs.quantile([right_quant])
             ci_right = float(ci.iloc[0])
+
+            zero_pvalue = 1 - norm.cdf(0, loc=boot_mean, scale=boot_std)[0]
+
             if 0 < ci_right:  # 0 is not in critical area
                 test_result = 1
 
