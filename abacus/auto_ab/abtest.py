@@ -443,7 +443,8 @@ Following statistical tests are used:
 {chi_square}
 
 {test_explanation}
-Please note that you should carefully use the results of different statistical procedures and do not consider all of them at once.
+Please note that you should carefully use the results of different statistical 
+procedures and do not consider all of them at once.
 
 Statistics of experiment groups.
 Control group:
@@ -564,7 +565,8 @@ Following statistical tests are used:
 - Bootstrap test: {boot_result}.
 
 {test_explanation}
-Please note that you should carefully use the results of different statistical procedures and do not consider all of them at once.
+Please note that you should carefully use the results of different statistical 
+procedures and do not consider all of them at once.
 
 Statistics of experiment groups.
 Control group:
