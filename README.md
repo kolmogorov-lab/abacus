@@ -2,6 +2,7 @@
 
 [![PyPI Latest Release](https://img.shields.io/pypi/v/kolmogorov-abacus.svg)](https://pypi.org/project/kolmogorov-abacus/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/kolmogorov-abacus.svg?label=PyPI%20downloads)](https://pypi.org/project/kolmogorov-abacus/)
+[![Telegram](https://img.shields.io/badge/telegram-kolmogorov_abacus-blueviolet.svg?logo=telegram)](https://t.me/kolmogorov_abacus_chat)
 [![License - MIT License](https://img.shields.io/pypi/l/kolmogorov-abacus.svg)](https://github.com/kolmogorov-lab/abacus/blob/main/LICENSE)
 
 # ABacus: fast hypothesis testing and experiment design solution
@@ -33,7 +34,7 @@ or right from GitHub:
 pip install pip+https://github.com/kolmogorov-lab/abacus
 ```
 
-Note the requirement of Python 3.11+.
+Note the requirement of Python 3.8+.
 
 ## Quick example
 
