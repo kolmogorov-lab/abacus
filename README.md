@@ -34,7 +34,7 @@ or right from GitHub:
 pip install pip+https://github.com/kolmogorov-lab/abacus
 ```
 
-Note the requirement of Python 3.11+.
+Note the requirement of Python 3.8+.
 
 ## Quick example
 

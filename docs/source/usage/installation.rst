@@ -13,4 +13,4 @@ or right from Github:
 
     pip install pip+https://github.com/kolmogorov-lab/abacus
 
-**Note**: ABacus requires Python 3.11+.
+**Note**: ABacus requires Python 3.8+.

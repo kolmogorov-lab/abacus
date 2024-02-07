@@ -32,8 +32,6 @@ def test_experiment_init_default(checks_dataframe):
     )
     ab_test = ABTest(checks_dataframe, ab_params)
 
-    return ab_test
-
 
 @pytest.mark.smoke
 def test_experiment_init_continuous(checks_dataframe):
@@ -53,8 +51,6 @@ def test_experiment_init_continuous(checks_dataframe):
         data_params=data_params, hypothesis_params=hypothesis_params
     )
     ab_test = ABTest(checks_dataframe, ab_params)
-
-    return ab_test
 
 
 @pytest.mark.smoke
@@ -76,8 +72,6 @@ def test_experiment_init_binary(checks_dataframe):
     )
     ab_test = ABTest(checks_dataframe, ab_params)
 
-    return ab_test
-
 
 @pytest.mark.smoke
 def test_experiment_init_ratio(checks_dataframe):
@@ -98,8 +92,6 @@ def test_experiment_init_ratio(checks_dataframe):
         data_params=data_params, hypothesis_params=hypothesis_params
     )
     ab_test = ABTest(checks_dataframe, ab_params)
-
-    return ab_test
 
 
 @pytest.mark.smoke
@@ -127,8 +119,6 @@ def test_experiment_init_continuous_custom_metric(checks_dataframe):
     )
     ab_test = ABTest(checks_dataframe, ab_params)
 
-    return ab_test
-
 
 @pytest.mark.smoke
 def test_experiment_init_transformations(checks_dataframe):
@@ -150,8 +140,6 @@ def test_experiment_init_transformations(checks_dataframe):
     )
     ab_test = ABTest(checks_dataframe, ab_params)
 
-    return ab_test
-
 
 @pytest.mark.smoke
 def test_experiment_init_cuped(checks_dataframe):
@@ -172,5 +160,3 @@ def test_experiment_init_cuped(checks_dataframe):
         data_params=data_params, hypothesis_params=hypothesis_params
     )
     ab_test = ABTest(checks_dataframe, ab_params)
-
-    return ab_test
