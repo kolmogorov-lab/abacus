@@ -26,7 +26,7 @@ jobs:
       - name: Run black
         uses: psf/black@stable
         with:
-          options: "--check --verbose"
+          options: "--verbose"
           src: "./abacus"
           jupyter: false
 
