@@ -169,8 +169,12 @@ class ABTest:
         not_correct_fields = []
         df_cols = df.columns
         for field, value in cols.items():
-            if value == "" or value not in df_cols:
-                not_correct_fields.append(field)
+            if isinstance(value, list):
+                if not all(x in df_cols for x in value):
+                    not_correct_fields.append(field)
+            else:
+                if value == "" or value not in df_cols:
+                    not_correct_fields.append(field)
 
         if len(not_correct_fields) > 0:
             raise ValueError(
