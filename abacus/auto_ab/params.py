@@ -1,9 +1,12 @@
 from __future__ import annotations
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
 from pydantic.dataclasses import dataclass
 from pydantic import validator, Field
 import numpy as np
+
+
+
 
 from abacus.types import (
     ColumnNameType,
@@ -14,6 +17,19 @@ from abacus.types import (
     MetricTransformType,
 )
 
+class MismatchMetricError(Exception):
+    """
+    Checks if user assigns custom metric functin along with custom metric name
+    """
+    def __init__(
+        self,
+        metric_name:str,
+        msg:str='You use default metric function with custom metric name "{}"! Reassign it with "metric" parameter.'
+        ):
+        self.metric_name = metric_name
+        self.msg = msg.format(self.metric_name)
+        super().__init__(self.msg)
+        
 
 class ValidationConfig:
     validate_assignment = True
@@ -98,6 +114,9 @@ class HypothesisParams:
     strata_weights: Optional[Dict[str, float]] = Field(default_factory=dict)
 
     def __post_init__(self):
+        if self.metric_name not in ('mean', 'median') \
+            and self.metric is np.mean:
+                raise MismatchMetricError(self.metric_name)
         if self.metric_name == "mean":
             self.metric = np.mean
         if self.metric_name == "median":
