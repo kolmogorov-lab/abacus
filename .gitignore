@@ -113,6 +113,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+abacus_env/
 
 # Spyder project settings
 .spyderproject
