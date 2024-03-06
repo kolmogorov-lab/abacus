@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Dict, Any, Optional, List
+from typing import Dict, Any, Optional, List, Tuple
 
 from pydantic.dataclasses import dataclass
 from pydantic import validator, Field
@@ -20,6 +20,11 @@ from abacus.types import (
 class MismatchMetricError(Exception):
     """
     Checks if user assigns custom metric functin along with custom metric name
+    Args:
+    metric_name:str
+    Metric name assigned by user via metric_name attr
+    msg: str
+    Error message template (default: 'You use default metric function with custom metric name "{}"! Reassign it with "metric" parameter.')
     """
     def __init__(
         self,
@@ -95,8 +100,9 @@ class HypothesisParams:
         n_buckets (int, Optional): number of buckets.
         strata (str, Optional): stratification column.
         strata_weights (Dict[str, float], Optional): historical strata weights.
+        default_metrics: Optional[Tuple[str]] : default metric with autoselected metric functions
     """
-
+    
     alpha: Optional[float] = 0.05
     beta: Optional[float] = 0.2
     alternative: Optional[str] = "two-sided"  # less, greater, two-sided
@@ -112,15 +118,17 @@ class HypothesisParams:
     n_buckets: Optional[int] = 100
     strata: Optional[str] = ""
     strata_weights: Optional[Dict[str, float]] = Field(default_factory=dict)
+    default_metrics: Optional[Tuple[str, ...]] = ('mean', 'median')
 
     def __post_init__(self):
-        if self.metric_name not in ('mean', 'median') \
+        if self.metric_name not in self.default_metrics \
             and self.metric is np.mean:
                 raise MismatchMetricError(self.metric_name)
         if self.metric_name == "mean":
             self.metric = np.mean
         if self.metric_name == "median":
             self.metric = np.median
+            
 
     @validator("alpha", always=True, allow_reuse=True)
     @classmethod
