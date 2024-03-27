@@ -91,7 +91,7 @@ class SplitBuilder:
                         lambda group: self._clusterize(
                             df=group,
                             strata="strata",
-                            columns=self.params.cols,
+                            columns=self.params.cols + self.params.cat_cols,
                             min_cluster_size=self.params.min_cluster_size,
                         )
                     )
