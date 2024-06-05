@@ -64,7 +64,7 @@ class VarianceReduction:
         print(results.summary())
         x_predict = x[factors_now_cols]
 
-        return model.predict(x_predict)
+        return results.predict(x_predict)
 
     @classmethod
     def cupac(
